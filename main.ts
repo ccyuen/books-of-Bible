@@ -10,6 +10,13 @@ enum bookType {
     REVELATION,
 }
 
+const bibleBooksOTOrder = [
+    "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1 Samuel", 
+    "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra", "Nehemiah", "Esther", 
+    "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Songs", "Isaiah", "Jeremiah", "Lamentations", 
+    "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", 
+    "Zephaniah", "Haggai", "Zechariah", "Malachi",
+]
 const bibleBooksOT: { [key: string]: bookType} = {
     "Genesis": bookType.LAW,
     "Exodus": bookType.LAW,
@@ -52,6 +59,11 @@ const bibleBooksOT: { [key: string]: bookType} = {
     "Malachi": bookType.MINOR_PROPHETS,
 }
 
+const bibleBooksNTOrder = [
+    "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians",
+    "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy",
+    "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation",
+]
 const bibleBooksNT: { [key: string]: bookType} = {
     "Matthew": bookType.GOSPELS,
     "Mark": bookType.GOSPELS,
@@ -82,38 +94,53 @@ const bibleBooksNT: { [key: string]: bookType} = {
     "Revelation": bookType.REVELATION,
 }
 
-function checkBook() {
-    const allBooks = {...bibleBooksOT, ...bibleBooksNT};
-
-    // const userInput = document.getElementById("book").value.trim();
-    // const resultDiv = document.getElementById("result");
-    
-    // if (bibleBooks.includes(userInput)) {
-    //     resultDiv.innerHTML = `<span style="color: green;">Correct! "${userInput}" is a book of the Bible.</span>`;
-    // } else {
-    //     resultDiv.innerHTML = `<span style="color: red;">Incorrect. "${userInput}" is not a recognized book of the Bible.</span>`;
-    // }
-
-    function initInput() {
+function checkBook() { 
+   function initInput() {
         const containerOT = document.getElementById('ot');
         for (let i = 0; i < Object.keys(bibleBooksOT).length; i++) {
             const input = document.createElement('input');
             input.type = 'text';
             input.id = '${i}';
 
+            input.addEventListener('keydown', (event: KeyboardEvent) => {
+                if (event.key === 'Enter') {
+                    const userInput = input.value;
+                    if (userInput === bibleBooksOTOrder[i]) {
+                        // result.textContent = 'Correct!';
+                        // result.style.color = 'green';
+                    } else {
+                        console.log("incorrect");
+                        // result.textContent = 'Incorrect. Try again!';
+                        // result.style.color = 'red';
+                    }
+                }
+            });
+
             containerOT?.appendChild(input);
         }
 
         const containerNT = document.getElementById('nt');
-        for (let i = Object.keys(bibleBooksOT).length; i < Object.keys(bibleBooksNT).length; i++) {
+        for (let i = 0; i < Object.keys(bibleBooksNT).length; i++) {
             const input = document.createElement('input');
             input.type = 'text';
             input.id = '${i}';
 
+            input.addEventListener('keydown', (event: KeyboardEvent) => {
+                if (event.key === 'Enter') {
+                    const userInput = input.value;
+                    if (userInput === bibleBooksNTOrder[i]) {
+                        // result.textContent = 'Correct!';
+                        // result.style.color = 'green';
+                    } else {
+                        console.log("incorrect");
+                        // result.textContent = 'Incorrect. Try again!';
+                        // result.style.color = 'red';
+                    }
+                }
+            });
+
             containerNT?.appendChild(input);
         }
     }
-
     initInput();
 }
-
